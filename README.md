@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+# To fetch Job
+```
+import { API_BASE_URL } from "./api";
+
+export const fetchJobs = async () => {
+  const res = await fetch(`${API_BASE_URL}/jobs`);
+  if (!res.ok) throw new Error("Failed to fetch jobs");
+  return res.json();
+};
+```
+
+itsanand129_db_user
+RXeCsaIHBrNk2wbk
+mongodb+srv://itsanand129_db_user:RXeCsaIHBrNk2wbk@mil-careers.0dbbpln.mongodb.net/?appName=mil-careers

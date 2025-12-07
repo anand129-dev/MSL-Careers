@@ -4,6 +4,10 @@ const cors = require("cors");
 
 const app = express();
 
+// Connect Database
+const connectDB = require("./config/db");
+connectDB();
+
 app.use(cors());
 app.use(express.json());
 
