@@ -1,13 +1,23 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.DB_URI);
-    console.log("MSL's MongoDB connected ✅");
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
+    const uri = process.env.MONGO_URI;
+
+    console.log("DB FILE URI =", uri); // debug
+
+    if (!uri || typeof uri !== "string") {
+      throw new Error("❌ MONGO_URI is not a valid string");
+    }
+
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 5000,
+    });
+
+    console.log("✅ MongoDB Connected");
+  } catch (error) {
+    console.error("❌ DB connect error:", error.message);
   }
 };
 
-module.exports = connectDB;
+export default connectDB;

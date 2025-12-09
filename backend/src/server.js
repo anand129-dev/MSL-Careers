@@ -1,23 +1,13 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
+import mongoose from "mongoose";
+import app from "./app.js";
+import dotenv from "dotenv";
 
-const app = express();
+dotenv.config();
 
-// Connect Database
-const connectDB = require("./config/db");
-connectDB();
-
-app.use(cors());
-app.use(express.json());
-
-// Test route
-app.get("/", (req, res) => {
-  res.send({ message: "MSL's Backend server is running 🚀" });
-});
-
-const PORT = process.env.PORT || 4080;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port http://localhost:${PORT}`);
-});
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB Connected");
+    app.listen(4080, () => console.log("Server running on 4080"));
+  })
+  .catch((err) => console.log(err));
