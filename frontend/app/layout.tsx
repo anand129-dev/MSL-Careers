@@ -1,4 +1,7 @@
 import "./globals.css";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Nav from "../components/Nav";
 
 export const metadata = {
   title: "MSL Careers",
@@ -12,7 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Nav />
+        {/* <Navbar /> */}
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

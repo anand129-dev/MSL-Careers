@@ -1,6 +1,7 @@
 // When we have layout file, then next run layout first, and we need to import the children
 // to render the page inside the layout
 import type { ReactNode } from "react";
+import "../globals.css";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -14,5 +15,5 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       <footer>Admin Footer</footer>
     </div>
   );
-}
+};
 export default AdminLayout;
