@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Job = {
   _id: string;
@@ -12,18 +13,20 @@ type Job = {
 };
 
 export default function JobList() {
-  const [jobs, setJobs] = useState<Job[]>([]); // ✅ inside component
+  const router = useRouter();
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const res = await fetch("http://localhost:4080/api/jobs");
-        if (!res.ok) throw new Error("Network response not ok");
         const result = await res.json();
-        setJobs(result.data); // only the array
+        console.log("API result:", result); // ✅ log the full API response
+        setJobs(result.data);
+        console.log("Jobs array:", result.data); // ✅ log array
       } catch (err) {
-        console.error("Failed to load jobs:", err);
+        console.error("Failed to fetch jobs:", err);
       } finally {
         setLoading(false);
       }
@@ -32,18 +35,24 @@ export default function JobList() {
   }, []);
 
   if (loading) return <p>Loading jobs...</p>;
-  if (jobs.length === 0) return <p>No jobs available</p>;
 
   return (
     <ul className="w-full max-w-md space-y-4">
       {jobs.map((job) => (
-        <li
-          key={job._id}
-          className="p-4 border rounded-md hover:shadow-md transition"
-        >
+        <li key={job._id} className="p-4 border rounded-md flex flex-col gap-2">
           <h2 className="text-xl font-bold">{job.title}</h2>
           <p className="text-gray-600">{job.department}</p>
           <p className="text-gray-500">{job.location}</p>
+          <button
+            onClick={() => {
+              console.log("Clicked job ID:", job._id); // ✅ log ID on click
+              router.push(`/jobs/${job._id}`);
+            }}
+            className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            
+            View Details
+          </button>
         </li>
       ))}
     </ul>

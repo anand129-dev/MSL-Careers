@@ -1,5 +1,6 @@
 import Job from "../models/job.model.js";
 import { success, error } from "../utils/response.js";
+import mongoose from "mongoose";
 
 export const createJob = async (req, res) => {
   try {
@@ -21,12 +22,20 @@ export const getJobs = async (req, res) => {
 
 export const getJob = async (req, res) => {
   try {
-    const job = await Job.findById(req.params.id).populate("postedBy");
+    const { id } = req.params;
+
+    // Validate ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return error(res, "Invalid Job ID", 400);
+    }
+
+    const job = await Job.findById(id).populate("postedBy");
     if (!job) return error(res, "Job not found", 404);
 
     success(res, job);
   } catch (err) {
-    error(res, err.message);
+    console.error("Error fetching job by ID:", err);
+    error(res, err.message, 500);
   }
 };
 
