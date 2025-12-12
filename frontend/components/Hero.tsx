@@ -7,8 +7,10 @@ interface HeroSectionProps {
   title?: string;
   subtitle?: string;
   description?: string;
-  buttonText?: string;
-  buttonHref?: string;
+  button1Text?: string;
+  button1Href?: string;
+  button2Text?: string;
+  button2Href?: string;
   backgroundImageUrl?: string; // Optional: Allow overriding the background image
 }
 
@@ -20,17 +22,19 @@ const DEFAULT_BACKGROUND_IMAGE_URL = "/hero-background.jpg";
 // 2. Component renamed to HeroSection
 const HeroSection: FC<HeroSectionProps> = ({
   // --- Default Content Values ---
-  title = "Navigate Your Future",
-  subtitle = "Discover Rewarding Maritime Careers",
-  description = "Explore exciting opportunities in shipping, logistics, and naval architecture. Join a global industry that moves the world forward.",
-  buttonText = "Explore Careers Now",
-  buttonHref = "/careers",
+  title = "Set Sail on a Career That Matters",
+  subtitle = "Join Maritime Solutions Ltd. — where innovation meets the sea",
+  description = "At Maritime Solutions Ltd., we believe that the horizon is just the beginning. Whether you’re passionate about ship operations, maritime technology, or logistics, here you’ll work on meaningful projects that power global commerce. With us, your career won’t just navigate the waves — it will chart new courses.",
+  button1Text = "Explore Jobs",
+  button1Href = "/jobs",
   backgroundImageUrl = DEFAULT_BACKGROUND_IMAGE_URL, // Default image path
+  button2Text = "Upload CV",
+  button2Href = "/user/cv",
   // ------------------------------
 }) => {
   return (
     // Hero Section: Full viewport height/width, relative for the image/overlay
-    <section className="relative z-20 h-[80vh] w-full flex items-center justify-start text-white overflow-hidden">
+    <section className="relative z-20 h-[70vh] w-full flex items-center justify-start text-white overflow-hidden">
       {/* 1. Background Image (Next.js Image for optimization) */}
       <Image
         src={backgroundImageUrl}
@@ -43,7 +47,8 @@ const HeroSection: FC<HeroSectionProps> = ({
       />
 
       {/* 2. Dark Overlay for Text Readability */}
-      {/* <div className="absolute inset-0 bg-blue-900 bg-opacity-70 z-10"></div> */}
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white z-10"></div> */}
+      <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white z-10"></div>
 
       {/* 3. Content Container (Left-aligned) */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,11 +69,18 @@ const HeroSection: FC<HeroSectionProps> = ({
           {/* Button (Link) */}
           {/* Button (Link) - MODERN APPROACH */}
           <Link
-            href={buttonHref}
-            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10 shadow-lg transition duration-150 ease-in-out"
+            href={button1Href}
+            className="text-base font-medium px-4 py-2 bg-primary text-white rounded-full hover:bg-secondary md:py-3 md:text-lg md:px-6 shadow-lg transition duration-150 ease-in-out mr-8"
           >
             {/* The button text becomes the child of the Link component */}
-            {buttonText}
+            {button1Text}
+          </Link>
+          <Link
+            href={button2Href}
+            className="text-base font-medium px-4 py-2 bg-transparent border border-primary text-white rounded-full hover:bg-secondary md:py-3 md:text-lg md:px-6 shadow-lg transition duration-150 ease-in-out"
+          >
+            {/* The button text becomes the child of the Link component */}
+            {button2Text}
           </Link>
         </div>
       </div>
