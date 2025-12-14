@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className="">
       <div className="h-2 bg-[#D5A63B]"></div>
       <div className="bg-[#1F3C8B] text-white pt-12 pb-6">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -29,7 +29,6 @@ export default function Footer() {
               </a>
               <a href="#" className="hover:text-[#D5A63B]">
                 {/* <FaYoutube /> */}
-
               </a>
               <a href="#" className="hover:text-[#D5A63B]">
                 {/* <FaInstagram /> */}

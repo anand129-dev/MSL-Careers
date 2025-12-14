@@ -37,7 +37,7 @@ export default function JobList() {
   if (loading) return <p>Loading jobs...</p>;
 
   return (
-    <div className="max-w-7xl mx-auto bg-slate-500">
+    <div className="max-w-7xl mx-auto pt-8 pb-16">
       <div className="flex justify-between py-4">
         <div>
           <h1 className="text-4xl text-primary">Upcoming Openings</h1>
@@ -86,6 +86,15 @@ export default function JobList() {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="max-w-4xl text-center mx-auto mt-4">
+        <p className="text-sm leading-tight">
+          Exciting positions are coming soon, and we want you to be ready. Share
+          your CV with us today so we can match you instantly with upcoming
+          openings. Early submissions help you get noticed first, giving you a
+          head start before the hiring process even begins.
+        </p>
       </div>
     </div>
   );

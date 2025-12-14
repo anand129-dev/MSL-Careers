@@ -50,7 +50,7 @@ const HeroSection: FC<HeroSectionProps> = ({
       {/* <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white z-10"></div> */}
       {/* <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white"></div> */}
       {/* <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white z-10"></div> */}
-      <div className="absolute top-28 inset-x-0 h-[calc(100%-7rem)] bg-gradient-to-b from-white to-transparent z-10"></div>
+      <div className="absolute absolute inset-0 bg-gradient-to-b from-white to-transparent z-10"></div>
 
       <div className="w-full max-w-7xl mx-auto //bg-red-500 relative z-10 pt-28 pb-36">
         <div className="//bg-green-500 mx-4 flex justify-between">

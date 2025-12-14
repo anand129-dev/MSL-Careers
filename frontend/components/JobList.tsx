@@ -37,7 +37,7 @@ export default function JobList() {
   if (loading) return <p>Loading jobs...</p>;
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto //bg-green-300 pt-8 py-16">
       <div className="flex justify-between py-4">
         <div>
           <h1 className="text-4xl text-primary">Current Openings</h1>
@@ -50,7 +50,7 @@ export default function JobList() {
         </div>
       </div>
 
-      <div className="bg-gray-100 rounded-xl px-4 py-4">
+      <div className="//bg-gray-100 rounded-xl px-4 py-4">
         <ul className="w-full grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {jobs.map((job) => (
             <li
