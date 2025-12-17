@@ -37,7 +37,7 @@ export default function JobList() {
   if (loading) return <p>Loading jobs...</p>;
 
   return (
-    <div className="max-w-7xl mx-auto pt-8 pb-16">
+    <div className="max-w-7xl w-full mx-auto pt-8 pb-16">
       <div className="flex justify-between py-4">
         <div>
           <h1 className="text-4xl text-primary">Upcoming Openings</h1>

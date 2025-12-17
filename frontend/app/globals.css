@@ -5,3 +5,16 @@
 body {
   @apply font-inter;
 }
+
+
+/* Remove blue focus ring from react-phone-number-input */
+.PhoneInput input {
+  outline: none;
+  box-shadow: none;
+}
+
+.PhoneInput input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #9ca3af; /* Tailwind gray-400 */
+}
