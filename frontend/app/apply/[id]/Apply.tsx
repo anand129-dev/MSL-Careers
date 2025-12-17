@@ -1,6 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import "react-phone-number-input/style.css";
 
 // Dynamic import for PhoneInput to prevent SSR hydration errors
@@ -13,6 +14,10 @@ export default function SendEmailForm() {
   const [loading, setLoading] = useState(false);
   const [previousEmployment, setPreviousEmployment] = useState("");
   const [phone, setPhone] = useState("");
+  const [job, setJob] = useState(null);
+
+  const params = useParams();
+  const jobId = params.id;
   const imageUrl = "/hero-background.jpg";
 
   // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,18 +43,33 @@ export default function SendEmailForm() {
   //   setLoading(false);
   // };
 
+  // Fetch Job Details from API
+  useEffect(() => {
+    if (!jobId) return;
+
+    const fetchJob = async () => {
+      try {
+        const res = await fetch(`http://localhost:4080/api/jobs/${jobId}`, {
+          cache: "no-store",
+        });
+        const json = await res.json();
+        setJob(json.data);
+      } catch (err) {
+        console.error("Failed to fetch job", err);
+      }
+    };
+
+    fetchJob();
+  }, [jobId]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const form = e.currentTarget; // IMPORTANT
+    const form = e.currentTarget;
     const formData = new FormData(form);
 
-    // Debug: confirm FormData has entries
-    for (const pair of formData.entries()) {
-      console.log("PAIR:", pair[0], pair[1]);
-    }
-
     const data = {};
+
     for (const [key, value] of formData.entries()) {
       if (value instanceof File) {
         data[key] = {
@@ -62,7 +82,13 @@ export default function SendEmailForm() {
       }
     }
 
-    console.log("FINAL FORM OBJECT 👇");
+    // 🔑 Attach job data
+    data.jobId = job?._id;
+    data.jobTitle = job?.title;
+    data.jobDepartment = job?.department;
+    data.jobLocation = job?.location;
+
+    console.log("FINAL APPLICATION DATA 👇");
     console.log(JSON.stringify(data, null, 2));
   };
 
@@ -79,15 +105,73 @@ export default function SendEmailForm() {
       </div>
 
       <main className="absolute  bg-white top-24 md:top-56 inset-x-0 mx-auto w-full md:max-w-4xl lg:max-w-5xl xl:max-w-7xl md:shadow-2xl px-4 sm:px-6 lg:px-8 py-10">
-        <div>
-          <span className="font-semibold text-gray-700">jobs/id</span>
+        <div className="space-y-3">
+          {/* Job ID */}
+          <div className="text-sm text-gray-500">
+            Job ID:{" "}
+            <span className="font-medium text-gray-700">{job?._id}</span>
+          </div>
+
+          {/* Title */}
+          <h1 className="text-xl md:text-2xl font-semibold text-gray-800">
+            Apply for {job?.title}
+            {job?.department && (
+              <span className="text-gray-500 font-medium">
+                {" "}
+                · {job.department}
+              </span>
+            )}
+          </h1>
+
+          {/* Meta info */}
+          <div className="flex flex-wrap gap-6 mt-2">
+            {/* Location */}
+            <div className="flex items-center gap-2 text-gray-500 text-sm">
+              <svg
+                width={18}
+                height={18}
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 2C10.477 2 6 6.478 6 12c0 5.018 10.005 20.011 10 20 1.964.011 10-15.05 10-20C26 6.478 21.523 2 16 2zm0 14a4 4 0 110-8 4 4 0 010 8z"
+                  fill="#7a7a7a"
+                />
+              </svg>
+              <span>{job?.location}</span>
+            </div>
+
+            {/* Job Type */}
+            <div className="flex items-center gap-2 text-gray-500 text-sm">
+              <svg
+                width={18}
+                height={18}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1.5"
+                  y="6.27"
+                  width="21"
+                  height="15.27"
+                  rx="1.91"
+                  stroke="#7d7d7d"
+                  strokeWidth={1.5}
+                />
+                <path
+                  d="M3.41 6.27H20.59A1.91 1.91 0 0122.5 8.18v1A3.82 3.82 0 0118.68 13H5.32A3.82 3.82 0 011.5 9.14v-1A1.91 1.91 0 013.41 6.27z"
+                  stroke="#7d7d7d"
+                  strokeWidth={1.5}
+                />
+              </svg>
+              <span>{job?.type}</span>
+            </div>
+          </div>
         </div>
-        <div className="text-blue-500 font-semibold text-xl my-2">
-          <span className="font-medium text-gray-700">
-            You are applying for -{" "}
-          </span>
-          User Experience Designer (R162647)
-        </div>
+
+        {/* Horizontal Bar */}
         <div className="w-full h-[2px] bg-blue-500 my-4"></div>
 
         {/* Form */}
@@ -273,6 +357,8 @@ export default function SendEmailForm() {
               {status}
             </p>
           )}
+          <input type="hidden" name="jobId" value={job?._id || ""} />
+          <input type="hidden" name="jobTitle" value={job?.title || ""} />
         </form>
       </main>
     </div>
