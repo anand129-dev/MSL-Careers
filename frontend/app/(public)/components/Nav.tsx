@@ -32,7 +32,7 @@ export default function Nav() {
               Upload CV
             </li>
             <li className="bg-[#CEA72B] px-4 py-1 cursor-pointer hover:bg-[#24439C]">
-              <button onClick={() => router.push("/create-job")}>
+              <button onClick={() => router.push("/register")}>
                 Register a vacancy
               </button>
             </li>

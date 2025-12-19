@@ -1,7 +1,6 @@
-import JobList from "../components/JobList";
-import UpcomingJobList from "../components/UpcomingJobList";
-import HeroSection from "@/components/Hero";
-import Nav from "@/components/Nav";
+import JobList from "./components/JobList";
+import UpcomingJobList from "./components/UpcomingJobList";
+import HeroSection from "@/app/(public)/components/Hero";
 
 export default function Home() {
   return (
