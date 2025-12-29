@@ -20,7 +20,7 @@ export default function JobList() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await fetch("http://localhost:4080/api/jobs");
+        const res = await fetch("https://msl-careers.onrender.com");
         const result = await res.json();
         console.log("API result:", result); // ✅ log the full API response
         setJobs(result.data);
